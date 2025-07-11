@@ -251,7 +251,7 @@ impl OuterScope {
 ///
 /// Requires the [`EditorContext`] to be set via [`EditorContext::set_as_current_editor`] beforehand.
 #[doc(alias = "BeginNodeEditor", alias = "EndNodeEditor")]
-pub fn editor<F: FnOnce(EditorScope)>(context: &mut EditorContext, f: F) -> OuterScope {
+pub fn editor<F: FnOnce(EditorScope)>(context: &EditorContext, f: F) -> OuterScope {
     // Ensure the context is set (though the user should ideally do this explicitly)
     let _ = context.set_as_current_editor();
 
