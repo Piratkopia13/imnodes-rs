@@ -182,6 +182,43 @@ impl EditorContext {
         unsafe { sys::imnodes_LoadEditorStateFromIniFile(self.raw, c_path.as_ptr()) };
         Ok(())
     }
+
+    /// Returns the current zoom level of the editor context.
+    pub fn get_zoom(&self) -> f32 {
+        // Safety: C API call. Returns the zoom level of the current editor context.
+        unsafe { sys::imnodes_EditorContextGetZoom() }
+    }
+
+    /// Sets the zoom level of the editor context.
+    pub fn set_zoom<V: Into<crate::ImVec2>>(&self, zoom: f32, zoom_center: V) {
+        let zoom_center: crate::ImVec2 = zoom_center.into();
+        // Safety: C API call. Sets the zoom level of the current editor context.
+        unsafe { sys::imnodes_EditorContextSetZoom(zoom, zoom_center) };
+    }
+
+    /// Converts a position from screen space to editor context space.
+    pub fn convert_to_editor_context_space<V: Into<crate::ImVec2>>(
+        &self,
+        screen_space_pos: V,
+    ) -> crate::ImVec2 {
+        let screen_space_pos: crate::ImVec2 = screen_space_pos.into();
+        let mut pos = crate::ImVec2 { x: 0.0, y: 0.0 };
+        // Safety: C API call. Converts a position from screen space to editor context space.
+        unsafe { sys::imnodes_ConvertToEditorContextSpace(&mut pos, screen_space_pos) };
+        pos
+    }
+
+    /// Converts a position from editor context space to screen space.
+    pub fn convert_from_editor_context_space<V: Into<crate::ImVec2>>(
+        &self,
+        screen_space_pos: V,
+    ) -> crate::ImVec2 {
+        let screen_space_pos: crate::ImVec2 = screen_space_pos.into();
+        let mut pos = crate::ImVec2 { x: 0.0, y: 0.0 };
+        // Safety: C API call. Converts a position from editor context space to screen space.
+        unsafe { sys::imnodes_ConvertFromEditorContextSpace(&mut pos, screen_space_pos) };
+        pos
+    }
 }
 
 impl Drop for EditorContext {

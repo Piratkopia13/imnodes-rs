@@ -279,6 +279,9 @@ unsafe extern "C" {
     pub fn imnodes_EditorContextMoveToNode(node_id: ::std::os::raw::c_int);
 }
 unsafe extern "C" {
+    pub fn imnodes_GetNodeEditorImGuiContext() -> *mut ImGuiContext;
+}
+unsafe extern "C" {
     pub fn imnodes_GetIO() -> *mut ImNodesIO;
 }
 unsafe extern "C" {
@@ -306,6 +309,18 @@ unsafe extern "C" {
         node_hovering_callback: ImNodesMiniMapNodeHoveringCallback,
         node_hovering_callback_data: ImNodesMiniMapNodeHoveringCallbackUserData,
     );
+}
+unsafe extern "C" {
+    pub fn imnodes_EditorContextGetZoom() -> f32;
+}
+unsafe extern "C" {
+    pub fn imnodes_EditorContextSetZoom(zoom_scale: f32, zoom_center: ImVec2);
+}
+unsafe extern "C" {
+    pub fn imnodes_ConvertToEditorContextSpace(pOut: *mut ImVec2, screen_space_pos: ImVec2);
+}
+unsafe extern "C" {
+    pub fn imnodes_ConvertFromEditorContextSpace(pOut: *mut ImVec2, screen_space_pos: ImVec2);
 }
 unsafe extern "C" {
     pub fn imnodes_PushColorStyle(item: ImNodesCol, color: ::std::os::raw::c_uint);
