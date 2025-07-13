@@ -7,7 +7,7 @@ use imgui::ImColor32;
 /// This works around Rust's orphan rule (E0117).
 #[derive(Debug, Clone)] // Removed PartialEq due to C array inside sys::ImNodesStyle
 #[repr(transparent)]
-pub struct Style(sys::ImNodesStyle);
+pub struct Style(pub sys::ImNodesStyle);
 
 /// Represents the visual style of the node editor.
 ///

@@ -40,7 +40,7 @@ impl EditorContext {
     /// Use this to modify the *currently active* style. To get a copy of the default style,
     /// use [`crate::Style::default()`].
     #[doc(alias = "GetStyle")]
-    pub fn get_style(&mut self) -> &mut Style {
+    pub fn get_style_mut(&mut self) -> &mut Style {
         // Safety: This accesses the global style object managed by imnodes.
         // We cast the raw pointer to our wrapper struct.
         unsafe { &mut *(sys::imnodes_GetStyle() as *mut Style) }
